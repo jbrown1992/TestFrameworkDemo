@@ -9,25 +9,31 @@ namespace TestFrameworkDemo.Steps
     [Binding]
     public class DemoHomeSteps
     {
-        HomePage homePage = new HomePage();
+        private HomePage _homePage;
+        private DemoHomePage _demoHomePage;
+
+        public DemoHomeSteps(HomePage homePage, DemoHomePage demoHomePage)
+        {
+            _homePage = homePage;
+            _demoHomePage = demoHomePage;
+        }
 
         [Given(@"I am on the Test Website")]
         public void GivenIAmOnTheTestWebsite()
         {
-            homePage.NavigateToHome();
+            _homePage.NavigateToHome();
         }
         
         [When(@"I click Demo Website Button")]
         public void WhenIClickDemoWebsiteButton()
         {
-            homePage.ClickDemoWebsiteButton();
+            _homePage.ClickDemoWebsiteButton();
         }
 
         [Then(@"I have navigated to the Demo Website")]
         public void ThenIHaveNavigatedToTheDemoWebsite()
         {
-            DemoHomePage demoHomePage = new DemoHomePage();
-            demoHomePage.IsOnDemoHomePage();
+            _demoHomePage.IsOnDemoHomePage();
         }
 
     }

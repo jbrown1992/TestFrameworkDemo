@@ -3,22 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
-using TestFrameworkDemo.Hooks;
 
 namespace TestFrameworkDemo.Pages
 {
     public class DemoHomePage
     {
-        IWebDriver driver;
+        private IWebDriver _driver;
+        private string url = "https://www.seleniumeasy.com/test/";
+        public IWebElement btnDemoHome => _driver.FindElement(By.LinkText("Demo Home"));
+        public IWebElement btnStartPractising => _driver.FindElement(By.Id("btn_basic_example"));
 
-        public DemoHomePage()
+        public DemoHomePage(IWebDriver driver)
         {
-            driver = Hook.driver;
+            _driver = driver;
         }
 
-        public IWebElement btnDemoHome => driver.FindElement(By.LinkText("Demo Home"));
-        public IWebElement btnStartPractising => driver.FindElement(By.Id("btn_basic_example"));
-   
         public void ClickStartPractising()
         {
             btnStartPractising.Click();
@@ -27,6 +26,11 @@ namespace TestFrameworkDemo.Pages
         public void IsOnDemoHomePage()
         {
             Assert.IsTrue(btnStartPractising.Displayed);
+        }
+
+        public void NavigateToDemoHomePage()
+        {
+            _driver.Navigate().GoToUrl(url);
         }
     }
 }

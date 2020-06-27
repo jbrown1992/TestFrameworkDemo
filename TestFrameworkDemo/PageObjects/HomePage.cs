@@ -2,24 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TestFrameworkDemo.Hooks;
 
 namespace TestFrameworkDemo.Pages
 {
-    class HomePage
+    public class HomePage
     {
+        private IWebDriver _driver;
+        private string url = "https://www.seleniumeasy.com/";
+        public IWebElement btnDemoWebsite => _driver.FindElement(By.LinkText("Demo Website!"));
 
-        IWebDriver driver;
 
-
-        public HomePage()
+        public HomePage(IWebDriver driver)
         {
-            driver = Hook.driver;
+            _driver = driver;
         }
 
-        private string url = "https://www.seleniumeasy.com/";
-
-        public IWebElement btnDemoWebsite => driver.FindElement(By.LinkText("Demo Website!"));
         public void ClickDemoWebsiteButton()
         {
            btnDemoWebsite.Click();
@@ -27,7 +24,7 @@ namespace TestFrameworkDemo.Pages
 
         public void NavigateToHome()
         {
-            driver.Navigate().GoToUrl(url);
+            _driver.Navigate().GoToUrl(url);
         }
 
     }
