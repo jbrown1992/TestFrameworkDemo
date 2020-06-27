@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace TestFrameworkDemo.Pages
     {
         private IWebDriver _driver;
         private string url = "https://www.seleniumeasy.com/test/basic-first-form-demo.html";
-        public IWebElement headerFirstExample => _driver.FindElement(By.CssSelector("col-md-6"));
+        public By headerFirstExample => By.ClassName("text-left");
 
 
         public SimpleInputPage(IWebDriver driver)
@@ -23,9 +24,9 @@ namespace TestFrameworkDemo.Pages
         public void IsOnSingleInputPage()
         {
             Assert.AreEqual(url, _driver.Url);
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
-            wait.Until(Conditions.ElementIsVisible(headerFirstExample));
-            Assert.IsTrue(headerFirstExample.Text.Contains("first example"));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementIsVisible(headerFirstExample));
+            Assert.IsTrue(_driver.FindElement(headerFirstExample).Text.Contains("first example"));
         }
 
     }

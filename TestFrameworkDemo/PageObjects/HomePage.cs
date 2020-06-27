@@ -9,7 +9,7 @@ namespace TestFrameworkDemo.Pages
     {
         private IWebDriver _driver;
         private string url = "https://www.seleniumeasy.com/";
-        public IWebElement btnDemoWebsite => _driver.FindElement(By.LinkText("Demo Website!"));
+        public By btnDemoWebsite => By.LinkText("Demo Website!");
 
 
         public HomePage(IWebDriver driver)
@@ -19,7 +19,7 @@ namespace TestFrameworkDemo.Pages
 
         public void ClickDemoWebsiteButton()
         {
-           btnDemoWebsite.Click();
+           _driver.FindElement(btnDemoWebsite).Click();
         }
 
         public void NavigateToHome()

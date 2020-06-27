@@ -5,25 +5,8 @@ using System.Text;
 
 namespace TestFrameworkDemo.Helper
 {
-    public class Conditions
+    public class WebDriverHelper
     {
-
-        public static Func<IWebDriver, bool> ElementIsVisible(IWebElement element)
-        {
-            return (driver) =>
-            {
-                try
-                {
-                    return element.Displayed;
-                }
-                catch (Exception)
-                {
-                    // If element is null, stale or if it cannot be located
-                    return false;
-                }
-            };
-        }
-
         public static void StaleElementHandleClick(IWebElement webElement)
         {
             int count = 0;

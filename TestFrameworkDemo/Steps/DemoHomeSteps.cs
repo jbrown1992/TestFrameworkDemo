@@ -66,7 +66,7 @@ namespace TestFrameworkDemo.Steps
         [Then(@"I have navigated to Simple Form Demo Page")]
         public void ThenIHaveNavigatedToSimpleFormDemoPage()
         {
-            ScenarioContext.Current.Pending();
+            _simpleInputPage.IsOnSingleInputPage();
         }
 
 
