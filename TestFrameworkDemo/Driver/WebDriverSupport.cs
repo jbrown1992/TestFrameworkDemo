@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TechTalk.SpecFlow;
+using TestFrameworkDemo.Driver;
 
 namespace TestFrameworkDemo
 {
@@ -21,7 +22,7 @@ namespace TestFrameworkDemo
         [BeforeScenario]
         public void InitializeWebDriver()
         {
-            var webDriver = new ChromeDriver("C:\\Users\\james\\source\\repos\\TestFrameworkDemo\\TestFrameworkDemo\\bin\\Debug\\netcoreapp3.1");
+            ChromeDriver webDriver = DriverSingleton.Instance.GetDriver();
             objectContainer.RegisterInstanceAs<IWebDriver>(webDriver);
         }
     }

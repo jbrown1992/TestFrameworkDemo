@@ -35,17 +35,14 @@ namespace TestFrameworkDemo.Pages
         public void IsOnDemoHomePage()
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            Assert.IsTrue(wait.Until(ExpectedConditions.ElementIsVisible(btnStartPractising)).Displayed);
+            Assert.IsTrue(wait.Until(WebDriverHelper.ElementIsDisplayed(btnStartPractising)));
         }
 
         public void NavigateToDemoHomePage()
         {
             _driver.Navigate().GoToUrl(url);
             Assert.IsTrue(_driver.FindElement(btnStartPractising).Displayed);
-
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            var result = wait.Until(ExpectedConditions.ElementIsVisible(btnPopUpClose));
-            if (result.Displayed)
+            if (IsPopUpClickNeeded())
                 _driver.FindElement(btnPopUpClose).Click();
         }
 
@@ -54,8 +51,8 @@ namespace TestFrameworkDemo.Pages
             //Basic Examples is expanded
             Assert.AreEqual("true", _driver.FindElement(toggleBasic).GetAttribute("aria-expanded"));
 
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
-            var element = wait.Until(ExpectedConditions.ElementIsVisible(paneBasic));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            var element = wait.Until(WebDriverHelper.GetElementOnceVisible(paneBasic));
 
             //Header is correct
             Assert.AreEqual("BASIC EXAMPLES TO START WITH SELENIUM", element.FindElement(By.ClassName("head")).Text);
@@ -77,8 +74,24 @@ namespace TestFrameworkDemo.Pages
         public void ClickSimpleFormDemo()
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
-            wait.Until(ExpectedConditions.ElementIsVisible(paneBasic));
+            wait.Until(WebDriverHelper.ElementIsDisplayed(paneBasic));
             WebDriverHelper.StaleElementHandleClick(_driver.FindElement(simpleFormDemoLink));
+        }
+
+        private bool IsPopUpClickNeeded()
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+
+            try
+            {
+                wait.Until(WebDriverHelper.ElementIsDisplayed(btnPopUpClose));
+                return true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No popup to click...test continuing");
+                return false;
+            }
         }
 
     }

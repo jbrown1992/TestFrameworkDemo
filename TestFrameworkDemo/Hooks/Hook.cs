@@ -11,7 +11,7 @@ namespace TestFrameworkDemo.Hooks
     public class Hook
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
-        private IWebDriver _driver;
+        private static IWebDriver _driver;
 
         public Hook(IWebDriver driver)
         {
@@ -27,7 +27,20 @@ namespace TestFrameworkDemo.Hooks
         [AfterScenario]
         public void AfterScenario()
         {
-            _driver.Close();
+            //TODO: implement logic that has to run before executing each scenario
+        }
+
+        [BeforeTestRun]
+        public static void BeforeTestRun()
+        { 
+
+        }
+
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
+            _driver.Quit();
+            _driver.Dispose();
         }
     }
 }

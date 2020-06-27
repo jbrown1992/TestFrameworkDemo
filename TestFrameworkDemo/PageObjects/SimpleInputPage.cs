@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,7 +24,7 @@ namespace TestFrameworkDemo.Pages
         {
             Assert.AreEqual(url, _driver.Url);
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
-            wait.Until(ExpectedConditions.ElementIsVisible(headerFirstExample));
+            wait.Until(WebDriverHelper.ElementIsDisplayed(headerFirstExample));
             Assert.IsTrue(_driver.FindElement(headerFirstExample).Text.Contains("first example"));
         }
 
