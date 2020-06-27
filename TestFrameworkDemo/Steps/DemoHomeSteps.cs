@@ -36,5 +36,24 @@ namespace TestFrameworkDemo.Steps
             _demoHomePage.IsOnDemoHomePage();
         }
 
+        [Given(@"I am on the Demo Home Page")]
+        public void GivenIAmOnTheDemoHomePage()
+        {
+            _demoHomePage.NavigateToDemoHomePage();
+        }
+
+        [When(@"I click Start Practising Button")]
+        public void WhenIClickStartPractisingButton()
+        {
+            _demoHomePage.ClickStartPractising();
+        }
+
+        [Then(@"Basic examples are displayed")]
+        public void ThenBasicExamplesAreDisplayed()
+        {
+            _demoHomePage.BasicIsDislayed();
+        }
+
+
     }
 }
