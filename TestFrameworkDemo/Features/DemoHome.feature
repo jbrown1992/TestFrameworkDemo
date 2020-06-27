@@ -12,3 +12,9 @@ Scenario: Navigate to Basic Examples
 	Given I am on the Demo Home Page
 	When I click Start Practising Button
 	Then Basic examples are displayed
+
+Scenario: Navigate to Simple Form Demo
+	Given I am on the Demo Home Page
+	And I click Start Practising Button
+	When I click Simple Form Demo
+	Then I have navigated to Simple Form Demo Page

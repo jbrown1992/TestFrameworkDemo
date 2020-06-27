@@ -13,12 +13,13 @@ namespace TestFrameworkDemo.Pages
     {
         private IWebDriver _driver;
         private string url = "https://www.seleniumeasy.com/test/";
-        public IWebElement btnDemoHome => _driver.FindElement(By.LinkText("Demo Home"));
-        public IWebElement btnStartPractising => _driver.FindElement(By.Id("btn_basic_example"));
-
-        public IWebElement toggleBasic => _driver.FindElement(By.Id("basic_example"));
-        public IWebElement paneBasic => _driver.FindElement(By.Id("basic"));
-
+        private IWebElement btnDemoHome => _driver.FindElement(By.LinkText("Demo Home"));
+        private IWebElement btnStartPractising => _driver.FindElement(By.Id("btn_basic_example"));
+        private IWebElement toggleBasic => _driver.FindElement(By.Id("basic_example"));
+        private IWebElement paneBasic => _driver.FindElement(By.Id("basic"));
+        private IWebElement simpleFormDemoLink => _driver.FindElement(By.LinkText("Simple Form Demo"));
+        private By btnPopUpClose => By.Id("at-cv-lightbox-close");
+        //at-cv-lightbox-close
 
         public DemoHomePage(IWebDriver driver)
         {
@@ -38,6 +39,12 @@ namespace TestFrameworkDemo.Pages
         public void NavigateToDemoHomePage()
         {
             _driver.Navigate().GoToUrl(url);
+            Assert.IsTrue(btnStartPractising.Displayed);
+
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            var result = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(btnPopUpClose));
+            if (result.Displayed)
+                _driver.FindElement(btnPopUpClose).Click();
         }
 
         public void BasicIsDislayed()
@@ -63,7 +70,14 @@ namespace TestFrameworkDemo.Pages
             }
 
             Assert.AreEqual(expectedComponents, actualComponents);
-    }
+        }
+
+        public void ClickSimpleFormDemo()
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+            wait.Until(Conditions.ElementIsVisible(paneBasic));
+            Conditions.StaleElementHandleClick(simpleFormDemoLink);
+        }
 
     }
 }
