@@ -2,17 +2,32 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TestFrameworkDemo.Hooks;
 
 namespace TestFrameworkDemo.Pages
 {
     class HomePage
     {
-        public readonly string url = "https://www.seleniumeasy.com/";
 
-        public IWebElement btnDemoWebsite => btnDemoWebsite.FindElement(By.LinkText("Demo Website!"));
+        IWebDriver driver;
+
+
+        public HomePage()
+        {
+            driver = Hook.driver;
+        }
+
+        private string url = "https://www.seleniumeasy.com/";
+
+        public IWebElement btnDemoWebsite => driver.FindElement(By.LinkText("Demo Website!"));
         public void ClickDemoWebsiteButton()
         {
-            btnDemoWebsite.Click();
+           btnDemoWebsite.Click();
+        }
+
+        public void NavigateToHome()
+        {
+            driver.Navigate().GoToUrl(url);
         }
 
     }

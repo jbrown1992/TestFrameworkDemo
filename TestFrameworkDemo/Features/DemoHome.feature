@@ -1,10 +1,10 @@
-﻿Feature: DemoHome
+﻿Feature: Demo Home
 	As a tester
-	I want to nagivate to the Demo Home Page
-	So I can see the areas I can test
+	I want to navigate to the demo page
+	So I can see what I can practise
 
-@mytag
-Scenario: Navigate to Demo Home page
+@smoke
+Scenario: Navigate to Demo Home
 	Given I am on the Test Website
 	When I click Demo Website Button
-	Then I navigate to the Demo Website 
+	Then I have navigated to the Demo Website

@@ -9,10 +9,10 @@ using TechTalk.SpecFlow;
 namespace TestFrameworkDemo.Hooks
 {
     [Binding]
-    public sealed class Hooks
+    public sealed class Hook
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
-        IWebDriver driver;
+        public static IWebDriver driver;
 
         [BeforeScenario]
         public void BeforeScenario()

@@ -3,14 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using TestFrameworkDemo.Hooks;
 
 namespace TestFrameworkDemo.Pages
 {
     public class DemoHomePage
     {
-        public IWebDriver WebDriver { get; }
-        public IWebElement btnDemoHome => WebDriver.FindElement(By.LinkText("Demo Home"));
-        public IWebElement btnStartPractising => WebDriver.FindElement(By.Id("btn_basic_example"));
+        IWebDriver driver;
+
+        public DemoHomePage()
+        {
+            driver = Hook.driver;
+        }
+
+        public IWebElement btnDemoHome => driver.FindElement(By.LinkText("Demo Home"));
+        public IWebElement btnStartPractising => driver.FindElement(By.Id("btn_basic_example"));
    
         public void ClickStartPractising()
         {

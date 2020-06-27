@@ -8,25 +8,27 @@ namespace TestFrameworkDemo.Steps
 {
     [Binding]
     public class DemoHomeSteps
-
     {
+        HomePage homePage = new HomePage();
 
         [Given(@"I am on the Test Website")]
         public void GivenIAmOnTheTestWebsite()
         {
-
+            homePage.NavigateToHome();
         }
         
         [When(@"I click Demo Website Button")]
         public void WhenIClickDemoWebsiteButton()
         {
+            homePage.ClickDemoWebsiteButton();
+        }
 
-        }
-        
-        [Then(@"I navigate to the Demo Website")]
-        public void ThenINavigateToTheDemoWebsite()
+        [Then(@"I have navigated to the Demo Website")]
+        public void ThenIHaveNavigatedToTheDemoWebsite()
         {
-            ScenarioContext.Current.Pending();
+            DemoHomePage demoHomePage = new DemoHomePage();
+            demoHomePage.IsOnDemoHomePage();
         }
+
     }
 }
