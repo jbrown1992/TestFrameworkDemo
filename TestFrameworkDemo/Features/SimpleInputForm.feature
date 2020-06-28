@@ -46,14 +46,3 @@ Scenario Outline: Enter Values into Two Input Fields
 		|                       | 1                     | NaN       |
 		| A                     | 10                    | NaN       |
 		| 19                    | B                     | NaN       |
-
-	@twoInputField
-Scenario: Message is Updated on Two Input Fields
-	Given I navigate to the Simple Form Page
-	And I enter 1 into a
-	And I enter 3 into b
-	And I click Show Message
-	When I enter 6 into a
-	And I enter 4 into b
-	And I click Show Message
-	Then My total is displayed as 10
