@@ -21,7 +21,7 @@ namespace TestFrameworkDemo.Hooks
         [BeforeScenario]
         public void BeforeScenario()
         {
-            //TODO: implement logic that has to run before executing each scenario
+            _driver.Manage().Window.Maximize();
         }
 
         [AfterScenario]
