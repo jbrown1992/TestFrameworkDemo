@@ -32,9 +32,8 @@ namespace TestFrameworkDemo
         {
             _simpleInputPage.EnterMessageInToEnterMessageForm(message);
         }
-        
-        [Given(@"I click Show Message")]
-        [When(@"I click Show Message")]
+
+        [Given, When(@"I click Show Message")]
         public void GivenIClickShowMessage()
         {
             _simpleInputPage.ClickShowMessage();
@@ -44,6 +43,32 @@ namespace TestFrameworkDemo
         public void ThenMyMessageIsDisplayedAs(string message)
         {
             _simpleInputPage.MyMessageIsDisplayedAs(message);
+        }
+
+        [Given(@"I enter (.*) into a")]
+        [When(@"I enter (.*) into a")]
+        public void WhenIEnterIntoA(string aValue)
+        {
+            _simpleInputPage.EnterAValue(aValue);
+        }
+
+        [Given(@"I enter (.*) into b")]
+        [When(@"I enter (.*) into b")]
+        public void WhenIEnterIntoB(string bValue)
+        {
+            _simpleInputPage.EnterBValue(bValue);
+        }
+
+        [When(@"I click Get Total")]
+        public void WhenIClickGetTotal()
+        {
+            _simpleInputPage.ClickGetTotal();
+        }
+
+        [Then(@"My total is displayed as (.*)")]
+        public void ThenMyTotalIsDisplayedAs(string total)
+        {
+            _simpleInputPage.TotalIsDisplayedCorrectly(total);
         }
     }
 }
