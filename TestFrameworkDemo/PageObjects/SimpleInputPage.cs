@@ -13,12 +13,12 @@ namespace TestFrameworkDemo.Pages
         IWebDriver _driver;
         string url = "https://www.seleniumeasy.com/test/basic-first-form-demo.html";
         By headerFirstExample => By.ClassName("text-left");
-        By singleInputForm => By.Id("get-input");
-        By singleInputMessageInput => By.Id("user-message");
-        By showMessageButton => By.ClassName("btn");
-        By userMessage => By.Id("user-message");
-        By enterValue1 => By.Id("sum1");
-        By enterValue2 => By.Id("sum2");
+        IWebElement singleInputForm => _driver.FindElement(By.Id("get-input"));
+        IWebElement singleInputMessageInput => _driver.FindElement(By.Id("user-message"));
+        IWebElement showMessageButton => _driver.FindElements(By.ClassName("btn"))[0];
+        IWebElement userMessage => _driver.FindElements(By.Id("user-message"))[1];
+        IWebElement enterValue1 => _driver.FindElement(By.Id("sum1"));
+        IWebElement enterValue2 => _driver.FindElement(By.Id("sum2"));
         IWebElement getTotalButton => _driver.FindElements(By.ClassName("btn"))[1];
         IWebElement totalDisplayValue => _driver.FindElement(By.Id("displayvalue"));
 
@@ -43,7 +43,7 @@ namespace TestFrameworkDemo.Pages
 
         public void ClickShowMessage()
         {
-            _driver.FindElement(singleInputForm).FindElement(showMessageButton).Click(); ;
+            showMessageButton.Click(); ;
         }
 
         public void MyMessageIsDisplayedAs(string message)
@@ -53,13 +53,12 @@ namespace TestFrameworkDemo.Pages
             {
                 message = " " + message;
             }
-            var webElements = _driver.FindElements(userMessage);
-            Assert.AreEqual(webElements[1].Text, $"Your Message:{message}");
+            Assert.AreEqual(userMessage.Text, $"Your Message:{message}");
         }
 
         public void EnterAValue(string aValue)
         {
-            _driver.FindElement(enterValue1).SendKeys(aValue);
+            enterValue1.SendKeys(aValue);
         }
 
         public void TotalIsDisplayedCorrectly(string total)
@@ -74,12 +73,12 @@ namespace TestFrameworkDemo.Pages
 
         public void EnterBValue(string bValue)
         {
-            _driver.FindElement(enterValue2).SendKeys(bValue);
+            enterValue2.SendKeys(bValue);
         }
 
         public void EnterMessageInToEnterMessageForm(string message)
         {
-            _driver.FindElement(singleInputForm).FindElement(singleInputMessageInput).SendKeys(message);
+            singleInputMessageInput.SendKeys(message);
         }
     }
 }
