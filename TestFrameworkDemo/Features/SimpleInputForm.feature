@@ -5,7 +5,7 @@
 
 	@singleInputField
 Scenario Outline: Enter Message into Single Input Field
-	Given I am on Simple Form Page
+	Given I navigate to the Simple Form Page
 	When I enter <message> into Enter Message
 	And I click Show Message
 	Then My message is displayed as <message>
@@ -19,16 +19,16 @@ Scenario Outline: Enter Message into Single Input Field
 
 	@singleInputField
 Scenario: Message is Updated on Single Input Field
-	Given I am on Simple Form Page
-	And I enter "Hello" into Enter Message
+	Given I navigate to the Simple Form Page
+	And I enter Hello into Enter Message
 	And I click Show Message
-	When I enter "Hello World" into Enter Message 
+	When I enter World into Enter Message 
 	And I click Show Message
-	Then My message is displayed as "Hello World"
+	Then My message is displayed as HelloWorld
 
 	@twoInputField
-Scenario Outline: Enter Valyes into Two Input Fields
-	Given I am on Simple Form Page
+Scenario Outline: Enter Values into Two Input Fields
+	Given I navigate to the Simple Form Page
 	When I enter <aValue> into a
 	And I enter <bValue> into b
 	And I click Get Total
@@ -49,7 +49,7 @@ Scenario Outline: Enter Valyes into Two Input Fields
 
 	@twoInputField
 Scenario: Message is Updated on Two Input Fields
-	Given I am on Simple Form Page
+	Given I navigate to the Simple Form Page
 	And I enter 1 into a
 	And I enter 3 into b
 	And I click Show Message

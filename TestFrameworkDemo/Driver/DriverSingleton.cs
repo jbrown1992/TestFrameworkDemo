@@ -1,7 +1,10 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TestFrameworkDemo.Helper;
 
 namespace TestFrameworkDemo.Driver
 {
@@ -13,8 +16,9 @@ namespace TestFrameworkDemo.Driver
 
         DriverSingleton()
         {
-            //TODO: fix this
+            //TODO: fix this - method in constructor is bad practise, but need to remove popup on first run
             driver = new ChromeDriver("C:\\Users\\james\\source\\repos\\TestFrameworkDemo\\TestFrameworkDemo\\bin\\Debug\\netcoreapp3.1");
+            WebDriverHelper.ClickPopupOnFirstRun(driver);
         }
 
         public static DriverSingleton Instance

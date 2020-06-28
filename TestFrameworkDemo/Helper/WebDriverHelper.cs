@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -61,6 +62,23 @@ namespace TestFrameworkDemo.Helper
                     Console.WriteLine("Trying to recover from a stale element");
                     count++;
                 }
+        }
+
+        public static void ClickPopupOnFirstRun(IWebDriver driver)
+        {
+            driver.Navigate().GoToUrl("https://www.seleniumeasy.com/test/");
+
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(2));
+
+            try
+            {
+                wait.Until(ElementIsDisplayed(By.Id("at-cv-lightbox-close")));
+                driver.FindElement(By.Id("at-cv-lightbox-close")).Click();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No popup to click...test continuing");
+            }
         }
     }
 }

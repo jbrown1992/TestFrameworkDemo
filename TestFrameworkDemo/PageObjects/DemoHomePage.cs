@@ -19,8 +19,6 @@ namespace TestFrameworkDemo.Pages
         private By toggleBasic => By.Id("basic_example");
         private By paneBasic => By.Id("basic");
         private By simpleFormDemoLink => By.LinkText("Simple Form Demo");
-        private By btnPopUpClose => By.Id("at-cv-lightbox-close");
-        //at-cv-lightbox-close
 
         public DemoHomePage(IWebDriver driver)
         {
@@ -42,8 +40,6 @@ namespace TestFrameworkDemo.Pages
         {
             _driver.Navigate().GoToUrl(url);
             Assert.IsTrue(_driver.FindElement(btnStartPractising).Displayed);
-            if (IsPopUpClickNeeded())
-                _driver.FindElement(btnPopUpClose).Click();
         }
 
         public void BasicIsDislayed()
@@ -59,6 +55,7 @@ namespace TestFrameworkDemo.Pages
 
             //Practise components are displayed as expected
             var demoComponents = element.FindElements(By.ClassName("list-group-item"));
+            //TODO: Context injection for execpted components?
             var expectedComponents = new List<string> { "Simple Form Demo", "Check Box Demo", "Radio Buttons Demo", "Select Dropdown List", "Javascript Alerts", "Window Popup Modal", "Bootstrap Alerts", "Bootstrap Modals" };
             var actualComponents = new List<string>();
 
@@ -78,21 +75,7 @@ namespace TestFrameworkDemo.Pages
             WebDriverHelper.StaleElementHandleClick(_driver.FindElement(simpleFormDemoLink));
         }
 
-        private bool IsPopUpClickNeeded()
-        {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
 
-            try
-            {
-                wait.Until(WebDriverHelper.ElementIsDisplayed(btnPopUpClose));
-                return true;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("No popup to click...test continuing");
-                return false;
-            }
-        }
 
     }
 }
