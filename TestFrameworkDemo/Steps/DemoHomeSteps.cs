@@ -11,11 +11,13 @@ namespace TestFrameworkDemo.Steps
     {
         private HomePage _homePage;
         private DemoHomePage _demoHomePage;
+        private SimpleInputPage _simpleInputPage;
 
-        public DemoHomeSteps(HomePage homePage, DemoHomePage demoHomePage)
+        public DemoHomeSteps(HomePage homePage, DemoHomePage demoHomePage, SimpleInputPage simpleInputPage)
         {
             _homePage = homePage;
             _demoHomePage = demoHomePage;
+            _simpleInputPage = simpleInputPage;
         }
 
         [Given(@"I am on the Test Website")]
@@ -42,6 +44,7 @@ namespace TestFrameworkDemo.Steps
             _demoHomePage.NavigateToDemoHomePage();
         }
 
+        [Given(@"I click Start Practising Button")]
         [When(@"I click Start Practising Button")]
         public void WhenIClickStartPractisingButton()
         {
@@ -53,6 +56,19 @@ namespace TestFrameworkDemo.Steps
         {
             _demoHomePage.BasicIsDislayed();
         }
+
+        [When(@"I click Simple Form Demo")]
+        public void WhenIClickSimpleFormDemo()
+        {
+            _demoHomePage.ClickSimpleFormDemo();
+        }
+
+        [Then(@"I have navigated to Simple Form Demo Page")]
+        public void ThenIHaveNavigatedToSimpleFormDemoPage()
+        {
+            _simpleInputPage.IsOnSingleInputPage();
+        }
+
 
 
     }

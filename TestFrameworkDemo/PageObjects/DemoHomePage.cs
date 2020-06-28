@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Nest;
 using OpenQA.Selenium.Support.UI;
 using TestFrameworkDemo.Helper;
+using SeleniumExtras.WaitHelpers;
 
 namespace TestFrameworkDemo.Pages
 {
@@ -13,12 +14,11 @@ namespace TestFrameworkDemo.Pages
     {
         private IWebDriver _driver;
         private string url = "https://www.seleniumeasy.com/test/";
-        public IWebElement btnDemoHome => _driver.FindElement(By.LinkText("Demo Home"));
-        public IWebElement btnStartPractising => _driver.FindElement(By.Id("btn_basic_example"));
-
-        public IWebElement toggleBasic => _driver.FindElement(By.Id("basic_example"));
-        public IWebElement paneBasic => _driver.FindElement(By.Id("basic"));
-
+        private By btnDemoHome => By.LinkText("Demo Home");
+        private By btnStartPractising => By.Id("btn_basic_example");
+        private By toggleBasic => By.Id("basic_example");
+        private By paneBasic => By.Id("basic");
+        private By simpleFormDemoLink => By.LinkText("Simple Form Demo");
 
         public DemoHomePage(IWebDriver driver)
         {
@@ -27,32 +27,35 @@ namespace TestFrameworkDemo.Pages
 
         public void ClickStartPractising()
         {
-            btnStartPractising.Click();
+            _driver.FindElement(btnStartPractising).Click();
         }
 
         public void IsOnDemoHomePage()
         {
-            Assert.IsTrue(btnStartPractising.Displayed);
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            Assert.IsTrue(wait.Until(WebDriverHelper.ElementIsDisplayed(btnStartPractising)));
         }
 
         public void NavigateToDemoHomePage()
         {
             _driver.Navigate().GoToUrl(url);
+            Assert.IsTrue(_driver.FindElement(btnStartPractising).Displayed);
         }
 
         public void BasicIsDislayed()
         {
             //Basic Examples is expanded
-            Assert.AreEqual("true", toggleBasic.GetAttribute("aria-expanded"));
+            Assert.AreEqual("true", _driver.FindElement(toggleBasic).GetAttribute("aria-expanded"));
 
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
-            wait.Until(Conditions.ElementIsVisible(paneBasic));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            var element = wait.Until(WebDriverHelper.GetElementOnceVisible(paneBasic));
 
             //Header is correct
-            Assert.AreEqual("BASIC EXAMPLES TO START WITH SELENIUM", paneBasic.FindElement(By.ClassName("head")).Text);
+            Assert.AreEqual("BASIC EXAMPLES TO START WITH SELENIUM", element.FindElement(By.ClassName("head")).Text);
 
             //Practise components are displayed as expected
-            var demoComponents = paneBasic.FindElements(By.ClassName("list-group-item"));
+            var demoComponents = element.FindElements(By.ClassName("list-group-item"));
+            //TODO: Context injection for execpted components?
             var expectedComponents = new List<string> { "Simple Form Demo", "Check Box Demo", "Radio Buttons Demo", "Select Dropdown List", "Javascript Alerts", "Window Popup Modal", "Bootstrap Alerts", "Bootstrap Modals" };
             var actualComponents = new List<string>();
 
@@ -63,7 +66,16 @@ namespace TestFrameworkDemo.Pages
             }
 
             Assert.AreEqual(expectedComponents, actualComponents);
-    }
+        }
+
+        public void ClickSimpleFormDemo()
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+            wait.Until(WebDriverHelper.ElementIsDisplayed(paneBasic));
+            WebDriverHelper.StaleElementHandleClick(_driver.FindElement(simpleFormDemoLink));
+        }
+
+
 
     }
 }
