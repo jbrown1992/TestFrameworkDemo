@@ -47,6 +47,22 @@ namespace TestFrameworkDemo.Helper
             };
         }
 
+        internal static Func<IWebDriver, bool> TextToBePresentInElement(IWebElement element, string expectedText)
+        {
+            return (driver) =>
+            {
+                try
+                {
+                    return element.Text.Contains(expectedText);
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine($"Text in element is : {element.Text}");
+                    return false;
+                }
+            };
+        }
+
         public static void StaleElementHandleClick(IWebElement webElement)
         {
             int count = 0;

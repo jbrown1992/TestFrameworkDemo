@@ -33,7 +33,8 @@ namespace TestFrameworkDemo
             _simpleInputPage.EnterMessageInToEnterMessageForm(message);
         }
 
-        [Given, When(@"I click Show Message")]
+        [Given(@"I click Show Message")]
+        [When(@"I click Show Message")]
         public void GivenIClickShowMessage()
         {
             _simpleInputPage.ClickShowMessage();
