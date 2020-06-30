@@ -33,10 +33,10 @@ namespace TestFrameworkDemo.Steps
             _getRandomUserPage.NewUserIsReturned();
         }
 
-        [Then(@"Loading icon is displayed until New Usser is returned")]
-        public void ThenLoadingIconIsDisplayedUntilNewUsserIsReturned()
+        [Then(@"Loading icon is displayed until New User is returned")]
+        public void ThenLoadingIconIsDisplayedUntilNewUserIsReturned()
         {
-            ScenarioContext.Current.Pending();
+            _getRandomUserPage.LoadingIconIsDisplayed();
         }
 
     }
